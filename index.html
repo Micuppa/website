@@ -393,6 +393,141 @@
       .social-icons a:hover svg {
         filter: brightness(1.2);
       }
+
+      /* Waitlist Form Styles */
+      .waitlist-section {
+        margin: 30px 0;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideInUp 1s ease-out 1.6s forwards;
+      }
+
+      .waitlist-form {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        margin-bottom: 15px;
+        align-items: center;
+      }
+
+      #emailInput {
+        padding: 16px 20px;
+        border: 2px solid #e0e0e0;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-family: "Inter", sans-serif;
+        background: rgba(255, 255, 255, 0.9);
+        transition: all 0.3s ease;
+        outline: none;
+        text-align: left;
+        flex: 1;
+        min-width: 280px;
+      }
+
+      #emailInput:focus {
+        border-color: var(--highlight);
+        box-shadow: 0 0 0 3px rgba(199, 245, 48, 0.1);
+        background: white;
+      }
+
+      #emailInput::placeholder {
+        color: #999;
+        text-align: left;
+      }
+
+      .join-btn {
+        padding: 16px 24px;
+        background: linear-gradient(135deg, var(--accent), #ff6b3d);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: bold;
+        font-family: "Inter", sans-serif;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .join-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(250, 88, 33, 0.3);
+        background: linear-gradient(135deg, #ff6b3d, var(--accent));
+      }
+
+      .join-btn:active {
+        transform: translateY(0);
+      }
+
+      .join-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .form-message {
+        text-align: center;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+      }
+
+      .form-message.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .form-message.success {
+        background: rgba(76, 175, 80, 0.1);
+        color: #2e7d32;
+        border: 1px solid rgba(76, 175, 80, 0.3);
+      }
+
+      .form-message.error {
+        background: rgba(244, 67, 54, 0.1);
+        color: #c62828;
+        border: 1px solid rgba(244, 67, 54, 0.3);
+      }
+
+      @media (max-width: 600px) {
+        .waitlist-form {
+          max-width: 400px;
+        }
+      }
+
+      @media (max-width: 500px) {
+        .form-group {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .waitlist-form {
+          padding: 0 10px;
+          max-width: 100%;
+        }
+
+        #emailInput,
+        .join-btn {
+          width: 100%;
+          min-width: auto;
+        }
+
+        #emailInput::placeholder {
+          text-align: center;
+        }
+      }
     </style>
   </head>
   <body>
@@ -408,7 +543,11 @@
 
     <div class="container">
       <div class="logo">
-        <img src="logo.png" alt="Micuppa Logo" class="logo-img" />
+        <img
+          src="https://nqfixvvqwrzwnosyytci.supabase.co/storage/v1/object/public/public-assets//logo%20new%20beige%207.png"
+          alt="Micuppa Logo"
+          class="logo-img"
+        />
         micuppa
       </div>
       <div class="tagline">
@@ -426,6 +565,26 @@
         <span class="rocket-emoji">🚀</span>Stay tuned and follow us for early
         access & events!
       </p>
+
+      <!-- Waitlist Section -->
+      <div class="waitlist-section">
+        <form id="waitlistForm" class="waitlist-form">
+          <div class="form-group">
+            <input
+              type="email"
+              id="emailInput"
+              placeholder="Enter your email for early access"
+              required
+            />
+            <button type="submit" class="join-btn">
+              <span class="btn-text">Join Waitlist</span>
+              <span class="btn-loader" style="display: none">⏳</span>
+            </button>
+          </div>
+          <div id="formMessage" class="form-message"></div>
+        </form>
+      </div>
+
       <div class="footer">
         <div class="social-media">
           <div
@@ -501,6 +660,141 @@
     </div>
 
     <script>
+      // Spin up backend server on page load
+      window.addEventListener("load", async () => {
+        try {
+          await fetch("http://127.0.0.1:5000", {
+            method: "GET",
+            mode: "cors",
+          });
+          console.log("Backend server pinged successfully");
+        } catch (error) {
+          console.log(
+            "Backend ping failed (expected if server is not running):",
+            error
+          );
+        }
+      });
+
+      // Waitlist form functionality
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("waitlistForm");
+        const emailInput = document.getElementById("emailInput");
+        const submitBtn = form.querySelector(".join-btn");
+        const btnText = submitBtn.querySelector(".btn-text");
+        const btnLoader = submitBtn.querySelector(".btn-loader");
+        const messageDiv = document.getElementById("formMessage");
+
+        function showMessage(text, type) {
+          messageDiv.textContent = text;
+          messageDiv.className = `form-message show ${type}`;
+
+          setTimeout(() => {
+            messageDiv.classList.remove("show");
+          }, 5000);
+        }
+
+        function setLoading(loading) {
+          if (loading) {
+            submitBtn.disabled = true;
+            btnText.style.display = "none";
+            btnLoader.style.display = "inline";
+          } else {
+            submitBtn.disabled = false;
+            btnText.style.display = "inline";
+            btnLoader.style.display = "none";
+          }
+        }
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const email = emailInput.value.trim();
+
+          if (!email) {
+            showMessage("Please enter a valid email address", "error");
+            return;
+          }
+
+          // Basic email validation
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            showMessage("Please enter a valid email address", "error");
+            return;
+          }
+
+          setLoading(true);
+
+          try {
+            const response = await fetch(
+              "http://127.0.0.1:5000/join-waitlist",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  email: email,
+                }),
+                mode: "cors",
+              }
+            );
+
+            if (response.ok) {
+              const data = await response.json().catch(() => ({}));
+
+              // Check if it's a duplicate signup
+              if (data.message === "Already on the waitlist") {
+                showMessage(
+                  "✅ You're already on our waitlist! We'll notify you when we launch.",
+                  "success"
+                );
+              } else {
+                showMessage(
+                  "🎉 You're on the waitlist! We'll notify you when we launch.",
+                  "success"
+                );
+              }
+              emailInput.value = "";
+            } else {
+              const errorData = await response.json().catch(() => ({}));
+
+              const errorMessage =
+                errorData.message ||
+                `Server error (${response.status}). Please try again.`;
+              showMessage(errorMessage, "error");
+            }
+          } catch (error) {
+            console.error("Waitlist signup error:", error);
+
+            // More specific error handling
+            if (error.name === "TypeError" && error.message.includes("fetch")) {
+              showMessage(
+                "⚠️ Backend server is not available. We'll save your interest for now!",
+                "error"
+              );
+              // For development: still show success to test UI
+              // showMessage("🎉 Thanks! We'll notify you when we launch.", "success");
+              // emailInput.value = "";
+            } else {
+              showMessage(
+                "Network error. Please check your connection and try again.",
+                "error"
+              );
+            }
+          } finally {
+            setLoading(false);
+          }
+        });
+
+        // Add enter key support for email input
+        emailInput.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            form.dispatchEvent(new Event("submit"));
+          }
+        });
+      });
+
       // Add interactive mouse trail effect
       document.addEventListener("mousemove", (e) => {
         if (Math.random() > 0.8) {
@@ -547,7 +841,7 @@
       // Observe all animated elements
       document
         .querySelectorAll(
-          ".logo, .tagline, .description, .launch-info, .footer"
+          ".logo, .tagline, .description, .launch-info, .waitlist-section, .footer"
         )
         .forEach((el) => {
           observer.observe(el);
