@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Micuppa – Coming Soon</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #030203;
+        --highlight: #c7f530;
+        --accent: #fa5821;
+        --bg: #f6f6f6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: var(--bg);
+        font-family: "Inter", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        text-align: center;
+        color: var(--primary);
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* Floating coffee beans animation */
+      .floating-elements {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .floating-bean {
+        position: absolute;
+        width: 8px;
+        height: 12px;
+        background: rgba(3, 2, 3, 0.1);
+        border-radius: 50% 50% 40% 40%;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .floating-bean:nth-child(1) {
+        top: 20%;
+        left: 15%;
+        animation-delay: 0s;
+      }
+      .floating-bean:nth-child(2) {
+        top: 60%;
+        left: 85%;
+        animation-delay: -2s;
+      }
+      .floating-bean:nth-child(3) {
+        top: 80%;
+        left: 10%;
+        animation-delay: -4s;
+      }
+      .floating-bean:nth-child(4) {
+        top: 40%;
+        left: 90%;
+        animation-delay: -1s;
+      }
+      .floating-bean:nth-child(5) {
+        top: 10%;
+        left: 70%;
+        animation-delay: -3s;
+      }
+
+      .container {
+        max-width: 600px;
+        padding: 20px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .logo {
+        font-family: "Figtree", sans-serif;
+        font-weight: bold;
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideInUp 1s ease-out 0.2s forwards;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+
+      .logo-img {
+        width: 180px;
+        height: 180px;
+        object-fit: contain;
+        margin-bottom: 0.2rem;
+        animation: logoBounce 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.3s
+          both;
+        will-change: transform;
+        filter: drop-shadow(0 2px 8px rgba(199, 245, 48, 0.12));
+      }
+
+      @keyframes logoBounce {
+        0% {
+          opacity: 0;
+          transform: scale(0.7) translateY(-30px);
+        }
+        60% {
+          opacity: 1;
+          transform: scale(1.1) translateY(8px);
+        }
+        80% {
+          transform: scale(0.95) translateY(-4px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .logo::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 3px;
+        background: var(--highlight);
+        border-radius: 2px;
+        animation: expandLine 1s ease-out 1.2s forwards;
+      }
+
+      .tagline {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideInUp 1s ease-out 0.6s forwards;
+        line-height: 1.4;
+      }
+
+      .highlight {
+        color: var(--accent);
+        font-weight: bold;
+        position: relative;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      .accent {
+        color: var(--accent);
+        font-weight: bold;
+        position: relative;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .description {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideInUp 1s ease-out 1s forwards;
+        margin-bottom: 15px;
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .launch-info {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideInUp 1s ease-out 1.4s forwards;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+      }
+
+      .coffee-emoji {
+        display: inline-block;
+        animation: rotate 2s ease-in-out infinite;
+        margin-left: 5px;
+      }
+
+      .rocket-emoji {
+        display: inline-block;
+        animation: bounce 1.5s ease-in-out infinite;
+        margin-right: 5px;
+      }
+
+      .footer {
+        margin-top: 40px;
+        font-size: 0.9rem;
+        color: #666;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: slideInUp 1s ease-out 1.8s forwards;
+      }
+
+      /* Hover effects */
+      .container:hover .logo {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+      }
+
+      .container:hover .highlight {
+        text-shadow: 0 0 20px var(--highlight);
+        transition: text-shadow 0.3s ease;
+      }
+
+      .container:hover .accent {
+        text-shadow: 0 0 15px var(--accent);
+        transition: text-shadow 0.3s ease;
+      }
+
+      /* Animations */
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes expandLine {
+        from {
+          width: 0;
+        }
+        to {
+          width: 60px;
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-15px) rotate(180deg);
+        }
+      }
+
+      @keyframes glow {
+        0% {
+          text-shadow: 0 0 5px var(--accent);
+        }
+        100% {
+          text-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes rotate {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-10deg);
+        }
+        75% {
+          transform: rotate(10deg);
+        }
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      /* Interactive background effect */
+      .bg-gradient {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(199, 245, 48, 0.03) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(250, 88, 33, 0.03) 0%,
+            transparent 50%
+          );
+        z-index: 0;
+        animation: gradientShift 8s ease-in-out infinite;
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      @media (max-width: 500px) {
+        .logo {
+          font-size: 2rem;
+        }
+        .tagline {
+          font-size: 1rem;
+        }
+        .description {
+          font-size: 0.9rem;
+        }
+        .launch-info {
+          font-size: 1rem;
+        }
+      }
+
+      /* Mouse interaction effects */
+      .interactive-dot {
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        background: var(--highlight);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1000;
+        opacity: 0;
+        animation: fadeOut 1s ease-out forwards;
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+
+    <div class="floating-elements">
+      <div class="floating-bean"></div>
+      <div class="floating-bean"></div>
+      <div class="floating-bean"></div>
+      <div class="floating-bean"></div>
+      <div class="floating-bean"></div>
+    </div>
+
+    <div class="container">
+      <div class="logo">
+        <img src="logo.png" alt="Micuppa Logo" class="logo-img" />
+        micuppa
+      </div>
+      <div class="tagline">
+        Find your <span class="highlight">next</span>
+        <span class="accent">coffee spot</span><br />
+        Personalized café discovery for true cafe lovers<span
+          class="coffee-emoji"
+        ></span>
+      </div>
+      <p class="description">
+        We're curating the most unique cafes in town, just for you. <br />
+        Launching soon in <strong>Pune</strong>!
+      </p>
+      <p class="launch-info">
+        <span class="rocket-emoji">🚀</span>Stay tuned and follow us for early
+        access & events!
+      </p>
+      <div class="footer">
+        <span style="font-size: 0.95em; color: #222"
+          >Instagram:
+          <a
+            href="https://instagram.com/micuppa.app"
+            target="_blank"
+            style="color: #fa5821; text-decoration: none"
+            >@micuppa.app</a
+          ></span
+        ><br />© 2025 Micuppa
+      </div>
+    </div>
+
+    <script>
+      // Add interactive mouse trail effect
+      document.addEventListener("mousemove", (e) => {
+        if (Math.random() > 0.8) {
+          const dot = document.createElement("div");
+          dot.className = "interactive-dot";
+          dot.style.left = e.clientX + "px";
+          dot.style.top = e.clientY + "px";
+          document.body.appendChild(dot);
+
+          setTimeout(() => {
+            dot.remove();
+          }, 1000);
+        }
+      });
+
+      // Add subtle parallax effect to floating elements
+      document.addEventListener("mousemove", (e) => {
+        const beans = document.querySelectorAll(".floating-bean");
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+
+        beans.forEach((bean, index) => {
+          const speed = (index + 1) * 0.5;
+          const x = (mouseX - 0.5) * speed;
+          const y = (mouseY - 0.5) * speed;
+          bean.style.transform = `translate(${x}px, ${y}px)`;
+        });
+      });
+
+      // Add typing effect to tagline (optional enhancement)
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = "running";
+          }
+        });
+      }, observerOptions);
+
+      // Observe all animated elements
+      document
+        .querySelectorAll(
+          ".logo, .tagline, .description, .launch-info, .footer"
+        )
+        .forEach((el) => {
+          observer.observe(el);
+        });
+    </script>
+  </body>
+</html>
