@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Micuppa Survey - Help Us Serve You Better</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #030203;
+        --highlight: #c7f530;
+        --accent: #fa5821;
+        --bg: #f6f6f6;
+        --card-bg: rgba(255, 255, 255, 0.9);
+        --border: #e0e0e0;
+        --text-secondary: #666;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: var(--bg);
+        font-family: "Inter", sans-serif;
+        color: var(--primary);
+        line-height: 1.6;
+        min-height: 100vh;
+        position: relative;
+      }
+
+      /* Background gradient effect */
+      .bg-gradient {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(199, 245, 48, 0.03) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(250, 88, 33, 0.03) 0%,
+            transparent 50%
+          );
+        z-index: 0;
+        animation: gradientShift 8s ease-in-out infinite;
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      /* Floating coffee beans animation */
+      .floating-elements {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .floating-bean {
+        position: absolute;
+        width: 8px;
+        height: 12px;
+        background: rgba(3, 2, 3, 0.1);
+        border-radius: 50% 50% 40% 40%;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .floating-bean:nth-child(1) {
+        top: 20%;
+        left: 15%;
+        animation-delay: 0s;
+      }
+      .floating-bean:nth-child(2) {
+        top: 60%;
+        left: 85%;
+        animation-delay: -2s;
+      }
+      .floating-bean:nth-child(3) {
+        top: 80%;
+        left: 10%;
+        animation-delay: -4s;
+      }
+      .floating-bean:nth-child(4) {
+        top: 40%;
+        left: 90%;
+        animation-delay: -1s;
+      }
+      .floating-bean:nth-child(5) {
+        top: 10%;
+        left: 70%;
+        animation-delay: -3s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-15px) rotate(180deg);
+        }
+      }
+
+      /* Main container */
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        position: relative;
+        z-index: 2;
+        min-height: 100vh;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-top: 20px;
+      }
+
+      .logo {
+        font-family: "Figtree", sans-serif;
+        font-weight: bold;
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .logo-img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 8px rgba(199, 245, 48, 0.12));
+      }
+
+      .survey-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--accent);
+      }
+
+      .survey-subtitle {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        margin-bottom: 20px;
+      }
+
+      /* Survey form */
+      .survey-form {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* Question styles */
+      .question {
+        margin-bottom: 35px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: slideInUp 0.6s ease-out forwards;
+      }
+
+      .question:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .question:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .question:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .question:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .question:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      .question:nth-child(6) {
+        animation-delay: 0.6s;
+      }
+      .question:nth-child(7) {
+        animation-delay: 0.7s;
+      }
+
+      @keyframes slideInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .question-label {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        display: block;
+        color: var(--primary);
+      }
+
+      .required {
+        color: var(--accent);
+        margin-left: 3px;
+      }
+
+      /* Radio button and checkbox styles */
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .option {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .option:hover {
+        border-color: var(--highlight);
+        background: rgba(199, 245, 48, 0.05);
+        transform: translateX(5px);
+      }
+
+      .option input {
+        margin-right: 12px;
+        accent-color: var(--accent);
+        transform: scale(1.2);
+      }
+
+      .option.selected {
+        border-color: var(--accent);
+        background: rgba(250, 88, 33, 0.05);
+        box-shadow: 0 0 0 1px rgba(250, 88, 33, 0.1);
+      }
+
+      /* Rating scale styles */
+      .rating-scale {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 15px;
+      }
+
+      .rating-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        min-width: 40px;
+      }
+
+      .rating-option:hover {
+        background: rgba(199, 245, 48, 0.2);
+        transform: scale(1.1);
+      }
+
+      .rating-option input {
+        margin-bottom: 5px;
+        accent-color: var(--accent);
+        transform: scale(1.3);
+      }
+
+      .rating-option.selected {
+        background: rgba(250, 88, 33, 0.1);
+        border: 2px solid var(--accent);
+      }
+
+      /* Other input field */
+      .other-input,
+      .text-input {
+        margin-top: 10px;
+        padding: 12px 16px;
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        font-size: 1rem;
+        font-family: "Inter", sans-serif;
+        background: rgba(255, 255, 255, 0.9);
+        transition: all 0.3s ease;
+        outline: none;
+        width: 100%;
+        display: none;
+      }
+
+      .text-input {
+        display: block;
+        margin-top: 0;
+      }
+
+      .other-input:focus,
+      .text-input:focus {
+        border-color: var(--highlight);
+        box-shadow: 0 0 0 3px rgba(199, 245, 48, 0.1);
+        background: white;
+      }
+
+      .other-input.show {
+        display: block;
+        animation: slideDown 0.3s ease-out;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          max-height: 0;
+        }
+        to {
+          opacity: 1;
+          max-height: 100px;
+        }
+      }
+
+      /* Checkbox styles for multiple selection */
+      .checkbox-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+      }
+
+      /* Submit button */
+      .submit-section {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid var(--border);
+      }
+
+      .submit-btn {
+        padding: 16px 40px;
+        background: linear-gradient(135deg, var(--accent), #ff6b3d);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        font-family: "Inter", sans-serif;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        min-width: 200px;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(250, 88, 33, 0.3);
+        background: linear-gradient(135deg, #ff6b3d, var(--accent));
+      }
+
+      .submit-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* Success message */
+      .success-message {
+        background: rgba(76, 175, 80, 0.1);
+        color: #2e7d32;
+        border: 2px solid rgba(76, 175, 80, 0.3);
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-top: 20px;
+        display: none;
+      }
+
+      .success-message.show {
+        display: block;
+        animation: slideInUp 0.5s ease-out;
+      }
+
+      /* Back to home link */
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .back-link:hover {
+        color: var(--primary);
+        transform: translateX(-5px);
+      }
+
+      .back-link::before {
+        content: "←";
+        margin-right: 8px;
+        font-size: 1.2rem;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .container {
+          padding: 15px;
+        }
+
+        .survey-form {
+          padding: 25px 20px;
+        }
+
+        .logo {
+          font-size: 1.8rem;
+        }
+
+        .survey-title {
+          font-size: 1.5rem;
+        }
+
+        .rating-scale {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 10px;
+        }
+
+        .checkbox-options {
+          grid-template-columns: 1fr;
+        }
+
+        .question-label {
+          font-size: 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .logo {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .logo-img {
+          width: 50px;
+          height: 50px;
+        }
+
+        .survey-form {
+          padding: 20px 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-gradient"></div>
+
+    <div class="floating-elements">
+      <div class="floating-bean"></div>
+      <div class="floating-bean"></div>
+      <div class="floating-bean"></div>
+      <div class="floating-bean"></div>
+      <div class="floating-bean"></div>
+    </div>
+
+    <div class="container">
+      <div class="header">
+        <a href="index.html" class="back-link">Back to Home</a>
+
+        <div class="logo">
+          <img
+            src="https://nqfixvvqwrzwnosyytci.supabase.co/storage/v1/object/public/public-assets//logo%20new%20beige%207.png"
+            alt="Micuppa Logo"
+            class="logo-img"
+          />
+          micuppa
+        </div>
+
+        <h1 class="survey-title">Help Us Serve You Better</h1>
+        <p class="survey-subtitle">
+          Your preferences matter! Help us understand your cafe habits and food
+          preferences.
+        </p>
+      </div>
+
+      <form id="surveyForm" class="survey-form">
+        <!-- User Information -->
+        <div class="question">
+          <label class="question-label">
+            Your Email<span class="required">*</span>
+          </label>
+          <div class="options">
+            <input
+              type="email"
+              name="user_email"
+              class="text-input"
+              placeholder="Enter your email address"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="question-label">
+            Your Name<span class="required">*</span>
+          </label>
+          <div class="options">
+            <input
+              type="text"
+              name="name"
+              class="text-input"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="question-label">
+            Your Phone Number<span class="required">*</span>
+          </label>
+          <div class="options">
+            <input
+              type="tel"
+              name="phone"
+              class="text-input"
+              placeholder="Enter your phone number (e.g., +1234567890)"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Question 1: Foodie Rating -->
+        <div class="question">
+          <label class="question-label">
+            How much would you rate yourself as a foodie?<span class="required"
+              >*</span
+            >
+          </label>
+          <div class="rating-scale">
+            <div class="rating-option">
+              <input type="radio" name="foodie_rating" value="1" required />
+              <span>1</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="foodie_rating" value="2" required />
+              <span>2</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="foodie_rating" value="3" required />
+              <span>3</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="foodie_rating" value="4" required />
+              <span>4</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="foodie_rating" value="5" required />
+              <span>5</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 2: Cafe Visit Frequency -->
+        <div class="question">
+          <label class="question-label">
+            How often do you visit cafes?<span class="required">*</span>
+          </label>
+          <div class="options">
+            <label class="option">
+              <input
+                type="radio"
+                name="cafe_frequency"
+                value="once_month"
+                required
+              />
+              Once a month
+            </label>
+            <label class="option">
+              <input
+                type="radio"
+                name="cafe_frequency"
+                value="once_week"
+                required
+              />
+              Once a week
+            </label>
+            <label class="option">
+              <input
+                type="radio"
+                name="cafe_frequency"
+                value="alternate_days"
+                required
+              />
+              Alternate Days
+            </label>
+            <label class="option">
+              <input
+                type="radio"
+                name="cafe_frequency"
+                value="everyday"
+                required
+              />
+              Everyday
+            </label>
+            <label class="option">
+              <input
+                type="radio"
+                name="cafe_frequency"
+                value="other"
+                required
+              />
+              Other:
+            </label>
+            <input
+              type="text"
+              name="cafe_frequency_other"
+              class="other-input"
+              placeholder="Please specify..."
+            />
+          </div>
+        </div>
+
+        <!-- Question 3: Explore New Cafes -->
+        <div class="question">
+          <label class="question-label">
+            Do you like to explore new cafes?<span class="required">*</span>
+          </label>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="explore_cafes" value="yes" required />
+              Yes
+            </label>
+            <label class="option">
+              <input type="radio" name="explore_cafes" value="no" required />
+              No
+            </label>
+            <label class="option">
+              <input type="radio" name="explore_cafes" value="maybe" required />
+              Maybe
+            </label>
+          </div>
+        </div>
+
+        <!-- Question 4: How to Explore -->
+        <div class="question">
+          <label class="question-label">
+            How do you explore new cafes?<span class="required">*</span>
+          </label>
+          <div class="options">
+            <label class="option">
+              <input
+                type="radio"
+                name="explore_method"
+                value="google_search"
+                required
+              />
+              Search for new cafes on Google
+            </label>
+            <label class="option">
+              <input
+                type="radio"
+                name="explore_method"
+                value="friends_recommendation"
+                required
+              />
+              Recommendation by Friends
+            </label>
+            <label class="option">
+              <input
+                type="radio"
+                name="explore_method"
+                value="instagram_reels"
+                required
+              />
+              Instagram Reels
+            </label>
+            <label class="option">
+              <input
+                type="radio"
+                name="explore_method"
+                value="zomato_swiggy"
+                required
+              />
+              Zomato/Swiggy like platforms
+            </label>
+            <label class="option">
+              <input
+                type="radio"
+                name="explore_method"
+                value="other"
+                required
+              />
+              Other:
+            </label>
+            <input
+              type="text"
+              name="explore_method_other"
+              class="other-input"
+              placeholder="Please specify..."
+            />
+          </div>
+        </div>
+
+        <!-- Question 5: What to Look For (Multiple Selection) -->
+        <div class="question">
+          <label class="question-label">
+            What do you look for in a cafe while exploring it?<span
+              class="required"
+              >*</span
+            >
+            <small
+              style="
+                display: block;
+                font-weight: normal;
+                color: var(--text-secondary);
+                margin-top: 5px;
+              "
+            >
+              (You can select multiple options)
+            </small>
+          </label>
+          <div class="checkbox-options">
+            <label class="option">
+              <input type="checkbox" name="cafe_criteria" value="food_menu" />
+              Food & Menu they serve
+            </label>
+            <label class="option">
+              <input type="checkbox" name="cafe_criteria" value="reviews" />
+              Reviews
+            </label>
+            <label class="option">
+              <input type="checkbox" name="cafe_criteria" value="ambience" />
+              Ambience
+            </label>
+            <label class="option">
+              <input type="checkbox" name="cafe_criteria" value="distance" />
+              Distance from your location
+            </label>
+            <label class="option">
+              <input type="checkbox" name="cafe_criteria" value="price" />
+              Price
+            </label>
+            <label class="option">
+              <input type="checkbox" name="cafe_criteria" value="other" />
+              Other:
+            </label>
+          </div>
+          <input
+            type="text"
+            name="cafe_criteria_other"
+            class="other-input"
+            placeholder="Please specify..."
+          />
+        </div>
+
+        <!-- Question 6: App Interest Rating -->
+        <div class="question">
+          <label class="question-label">
+            How interested would you be if an app could suggest you cafes &
+            restaurants based on your food preferences and mood?<span
+              class="required"
+              >*</span
+            >
+          </label>
+          <div class="rating-scale">
+            <div class="rating-option">
+              <input type="radio" name="app_interest" value="1" required />
+              <span>1</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="app_interest" value="2" required />
+              <span>2</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="app_interest" value="3" required />
+              <span>3</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="app_interest" value="4" required />
+              <span>4</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="app_interest" value="5" required />
+              <span>5</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="app_interest" value="6" required />
+              <span>6</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="app_interest" value="7" required />
+              <span>7</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="app_interest" value="8" required />
+              <span>8</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="app_interest" value="9" required />
+              <span>9</span>
+            </div>
+            <div class="rating-option">
+              <input type="radio" name="app_interest" value="10" required />
+              <span>10</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 7: Early Access Interest -->
+        <div class="question">
+          <label class="question-label">
+            Would you be interested in getting early access to such an app?<span
+              class="required"
+              >*</span
+            >
+          </label>
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="early_access" value="yes" required />
+              Yes
+            </label>
+            <label class="option">
+              <input type="radio" name="early_access" value="no" required />
+              No
+            </label>
+            <label class="option">
+              <input type="radio" name="early_access" value="maybe" required />
+              Maybe
+            </label>
+          </div>
+        </div>
+
+        <div class="submit-section">
+          <button type="submit" class="submit-btn">
+            <span class="btn-text">Submit Survey</span>
+            <span class="btn-loader" style="display: none"
+              >⏳ Submitting...</span
+            >
+          </button>
+
+          <div id="successMessage" class="success-message">
+            🎉 Thank you for your feedback! Your responses help us create a
+            better experience for cafe lovers like you.
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("surveyForm");
+        const submitBtn = form.querySelector(".submit-btn");
+        const btnText = submitBtn.querySelector(".btn-text");
+        const btnLoader = submitBtn.querySelector(".btn-loader");
+        const successMessage = document.getElementById("successMessage");
+
+        // Handle "Other" input fields
+        const handleOtherInputs = () => {
+          // Cafe frequency other input
+          const cafeFrequencyRadios = document.querySelectorAll(
+            'input[name="cafe_frequency"]'
+          );
+          const cafeFrequencyOtherInput = document.querySelector(
+            'input[name="cafe_frequency_other"]'
+          );
+
+          cafeFrequencyRadios.forEach((radio) => {
+            radio.addEventListener("change", () => {
+              if (radio.value === "other" && radio.checked) {
+                cafeFrequencyOtherInput.classList.add("show");
+                cafeFrequencyOtherInput.required = true;
+              } else {
+                cafeFrequencyOtherInput.classList.remove("show");
+                cafeFrequencyOtherInput.required = false;
+                cafeFrequencyOtherInput.value = "";
+              }
+            });
+          });
+
+          // Explore method other input
+          const exploreMethodRadios = document.querySelectorAll(
+            'input[name="explore_method"]'
+          );
+          const exploreMethodOtherInput = document.querySelector(
+            'input[name="explore_method_other"]'
+          );
+
+          exploreMethodRadios.forEach((radio) => {
+            radio.addEventListener("change", () => {
+              if (radio.value === "other" && radio.checked) {
+                exploreMethodOtherInput.classList.add("show");
+                exploreMethodOtherInput.required = true;
+              } else {
+                exploreMethodOtherInput.classList.remove("show");
+                exploreMethodOtherInput.required = false;
+                exploreMethodOtherInput.value = "";
+              }
+            });
+          });
+
+          // Cafe criteria other input
+          const cafeCriteriaOtherCheckbox = document.querySelector(
+            'input[name="cafe_criteria"][value="other"]'
+          );
+          const cafeCriteriaOtherInput = document.querySelector(
+            'input[name="cafe_criteria_other"]'
+          );
+
+          cafeCriteriaOtherCheckbox.addEventListener("change", () => {
+            if (cafeCriteriaOtherCheckbox.checked) {
+              cafeCriteriaOtherInput.classList.add("show");
+            } else {
+              cafeCriteriaOtherInput.classList.remove("show");
+              cafeCriteriaOtherInput.value = "";
+            }
+          });
+        };
+
+        // Add visual feedback for selected options
+        const addSelectionFeedback = () => {
+          // For radio buttons
+          const radioInputs = document.querySelectorAll('input[type="radio"]');
+          radioInputs.forEach((radio) => {
+            radio.addEventListener("change", () => {
+              // Remove selected class from all options in the same group
+              const groupName = radio.name;
+              const allOptionsInGroup = document.querySelectorAll(
+                `input[name="${groupName}"]`
+              );
+              allOptionsInGroup.forEach((input) => {
+                input
+                  .closest(".option, .rating-option")
+                  .classList.remove("selected");
+              });
+
+              // Add selected class to current option
+              radio
+                .closest(".option, .rating-option")
+                .classList.add("selected");
+            });
+          });
+
+          // For checkboxes
+          const checkboxInputs = document.querySelectorAll(
+            'input[type="checkbox"]'
+          );
+          checkboxInputs.forEach((checkbox) => {
+            checkbox.addEventListener("change", () => {
+              if (checkbox.checked) {
+                checkbox.closest(".option").classList.add("selected");
+              } else {
+                checkbox.closest(".option").classList.remove("selected");
+              }
+            });
+          });
+        };
+
+        // Validate required checkbox group
+        const validateCheckboxGroup = () => {
+          const cafeCriteriaCheckboxes = document.querySelectorAll(
+            'input[name="cafe_criteria"]'
+          );
+          const isAnyChecked = Array.from(cafeCriteriaCheckboxes).some(
+            (cb) => cb.checked
+          );
+
+          if (!isAnyChecked) {
+            alert(
+              "Please select at least one criteria for what you look for in a cafe."
+            );
+            return false;
+          }
+          return true;
+        };
+
+        // Form submission
+        const handleSubmit = async (e) => {
+          e.preventDefault();
+
+          // Validate checkbox group
+          if (!validateCheckboxGroup()) {
+            return;
+          }
+
+          // Show loading state
+          submitBtn.disabled = true;
+          btnText.style.display = "none";
+          btnLoader.style.display = "inline";
+
+          // Collect form data
+          const formData = new FormData(form);
+
+          // Get all cafe criteria checkboxes
+          const cafeCriteriaCheckboxes = document.querySelectorAll(
+            'input[name="cafe_criteria"]'
+          );
+          const cafeCriteria = [];
+          cafeCriteriaCheckboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+              cafeCriteria.push(checkbox.value);
+            }
+          });
+
+          // Get explore methods (currently only single selection, but making it array for API)
+          const exploreMethod = formData.get("explore_method");
+          const exploreMethodOther = formData.get("explore_method_other");
+          let exploreMethods = [];
+          if (exploreMethod === "other" && exploreMethodOther) {
+            exploreMethods = [exploreMethodOther];
+          } else if (exploreMethod) {
+            // Map form values to API expected values
+            const methodMapping = {
+              google_search: "Google Search",
+              friends_recommendation: "Friends",
+              instagram_reels: "Social Media",
+              zomato_swiggy: "Food Apps",
+            };
+            exploreMethods = [methodMapping[exploreMethod] || exploreMethod];
+          }
+
+          // Get cafe visit frequency
+          const cafeFrequency = formData.get("cafe_frequency");
+          const cafeFrequencyOther = formData.get("cafe_frequency_other");
+          let frequencyValue = cafeFrequency;
+          if (cafeFrequency === "other" && cafeFrequencyOther) {
+            frequencyValue = cafeFrequencyOther;
+          } else {
+            // Map form values to API expected values
+            const frequencyMapping = {
+              once_month: "Monthly",
+              once_week: "Weekly",
+              alternate_days: "Alternate Days",
+              everyday: "Daily",
+            };
+            frequencyValue = frequencyMapping[cafeFrequency] || cafeFrequency;
+          }
+
+          // Map cafe criteria to API expected values
+          const criteriaMapping = {
+            food_menu: "Menu Variety",
+            reviews: "Reviews",
+            ambience: "Ambience",
+            distance: "Distance",
+            price: "Price",
+          };
+          const mappedCriteria = cafeCriteria.map((criteria) => {
+            if (criteria === "other") {
+              const otherValue = formData.get("cafe_criteria_other");
+              return otherValue || "Other";
+            }
+            return criteriaMapping[criteria] || criteria;
+          });
+
+          // Build the API payload
+          const surveyData = {
+            user_email: formData.get("user_email"),
+            name: formData.get("name"),
+            phone: formData.get("phone"),
+            foodie_rating: parseInt(formData.get("foodie_rating")),
+            cafe_visit_frequency: frequencyValue,
+            explore_new_cafes:
+              formData.get("explore_cafes") === "yes"
+                ? "Yes"
+                : formData.get("explore_cafes") === "no"
+                ? "No"
+                : "Maybe",
+            explore_method: exploreMethods,
+            explore_criteria: mappedCriteria,
+            app_interest_rating: parseInt(formData.get("app_interest")),
+            early_access_interest:
+              formData.get("early_access") === "yes"
+                ? "Yes"
+                : formData.get("early_access") === "no"
+                ? "No"
+                : "Maybe",
+          };
+
+          console.log("Survey Data:", surveyData);
+
+          try {
+            const response = await fetch("https://api.micuppa.com/survey", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(surveyData),
+              mode: "cors",
+            });
+
+            if (response.ok) {
+              const data = await response.json().catch(() => ({}));
+
+              // Redirect to success page
+              window.location.href = "survey-success.html";
+            } else {
+              const errorData = await response.json().catch(() => ({}));
+              const errorMessage =
+                errorData.message ||
+                `Server error (${response.status}). Please try again.`;
+              alert(errorMessage);
+            }
+          } catch (error) {
+            console.error("Survey submission error:", error);
+
+            if (error.name === "TypeError" && error.message.includes("fetch")) {
+              alert(
+                "⚠️ Backend server is not available. Please try again later."
+              );
+            } else {
+              alert(
+                "Network error. Please check your connection and try again."
+              );
+            }
+          } finally {
+            // Reset loading state
+            submitBtn.disabled = false;
+            btnText.style.display = "inline";
+            btnLoader.style.display = "none";
+          }
+        };
+
+        // Initialize all functionality
+        handleOtherInputs();
+        addSelectionFeedback();
+        form.addEventListener("submit", handleSubmit);
+
+        // Add smooth scrolling for better UX
+        const questions = document.querySelectorAll(".question");
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.animationPlayState = "running";
+            }
+          });
+        }, observerOptions);
+
+        questions.forEach((question) => {
+          observer.observe(question);
+        });
+      });
+
+      // Add interactive mouse trail effect (same as landing page)
+      document.addEventListener("mousemove", (e) => {
+        if (Math.random() > 0.9) {
+          const dot = document.createElement("div");
+          dot.style.cssText = `
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--highlight);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            left: ${e.clientX}px;
+            top: ${e.clientY}px;
+            animation: fadeOut 1s ease-out forwards;
+          `;
+          document.body.appendChild(dot);
+
+          setTimeout(() => {
+            dot.remove();
+          }, 1000);
+        }
+      });
+
+      // Add CSS for the fade out animation
+      const style = document.createElement("style");
+      style.textContent = `
+        @keyframes fadeOut {
+          0% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: scale(0);
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

@@ -202,7 +202,7 @@
       }
 
       .footer {
-        margin-top: 40px;
+        margin-top: 20px;
         font-size: 0.9rem;
         color: #666;
         opacity: 0;
@@ -528,6 +528,79 @@
           text-align: center;
         }
       }
+
+      /* Survey Section Styles */
+      .survey-section {
+        margin: 40px 0 20px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideInUp 1s ease-out 1.8s forwards;
+      }
+
+      .survey-text {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+
+      .survey-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        background: linear-gradient(135deg, var(--highlight), #d4f76a);
+        color: var(--primary);
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: bold;
+        font-family: "Inter", sans-serif;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(199, 245, 48, 0.2);
+      }
+
+      .survey-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(199, 245, 48, 0.4);
+        background: linear-gradient(135deg, #d4f76a, var(--highlight));
+      }
+
+      .survey-btn:active {
+        transform: translateY(-1px);
+      }
+
+      .survey-icon {
+        font-size: 1.2rem;
+        animation: bounce 2s ease-in-out infinite;
+      }
+
+      .survey-note {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        margin-top: 12px;
+        opacity: 0.8;
+      }
+
+      @media (max-width: 500px) {
+        .survey-section {
+          margin: 30px 0 15px;
+        }
+
+        .survey-btn {
+          padding: 12px 24px;
+          font-size: 0.95rem;
+        }
+
+        .survey-text {
+          font-size: 0.9rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -583,6 +656,20 @@
           </div>
           <div id="formMessage" class="form-message"></div>
         </form>
+      </div>
+
+      <!-- Survey Section -->
+      <div class="survey-section">
+        <p class="survey-text">
+          Help us build the perfect cafe discovery app for you!
+        </p>
+        <a href="survey.html" class="survey-btn">
+          <span class="survey-icon">📝</span>
+          Take Quick Survey
+        </a>
+        <p class="survey-note">
+          Takes less than 2 minutes • Your feedback matters
+        </p>
       </div>
 
       <div class="footer">
